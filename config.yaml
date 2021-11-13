@@ -1,0 +1,14 @@
+app:
+  name: go-rest
+
+server:
+  host: localhost
+  port: 8080
+
+database:
+  db_host: 127.0.0.1
+  db_port: 5432
+  db_name: go-rest
+  db_username: postgres
+  db_password: postgres
+  db_postgres_ssl_mode: disable
