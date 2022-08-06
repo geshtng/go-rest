@@ -26,7 +26,7 @@ type Configuration struct {
 	Database `mapstructure:"database"`
 }
 
-func InitConfig() string {
+func initConfig() {
 	viper.SetConfigName("config")
 	viper.AddConfigPath(".")
 	viper.SetConfigType("yaml")
@@ -35,15 +35,34 @@ func InitConfig() string {
 		fmt.Println("Error reading config file: ", err)
 		os.Exit(1)
 	}
+}
+
+func InitConfigDsn() string {
+	initConfig()
 
 	var config Configuration
 
 	err := viper.Unmarshal(&config)
 	if err != nil {
-		fmt.Println("Unable to decode into struct: ", err)
+		fmt.Println("[CONFIG][InitConfigDsn] Unable to decode into struct:", err)
 	}
 
 	dsn := `postgres://` + config.DBUsername + `:` + config.DBPassword + `@` + config.DBHost + `:` + config.DBPort + `/` + config.DBName + `?sslmode=` + config.DBPostgresSslMode
 
 	return dsn
+}
+
+func InitConfigServer() string {
+	initConfig()
+
+	var config Configuration
+
+	err := viper.Unmarshal(&config)
+	if err != nil {
+		fmt.Println("[CONFIG][InitConfigServer] Uncable to decode into struct:", err)
+	}
+
+	port := `:` + fmt.Sprint(config.Port)
+
+	return port
 }
