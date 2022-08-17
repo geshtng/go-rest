@@ -10,11 +10,11 @@ func InitArticle(db *sql.DB, echo *echo.Echo) {
 	handler := InitArticleHandler(db)
 
 	echo.GET("/articles", handler.FetchArticles)
-	echo.GET("/article/:id", handler.GetArticleByID)
+	echo.GET("/articles/:id", handler.GetArticleByID)
 
-	echo.POST("/article", handler.CreateArticle)
+	echo.POST("/articles", handler.CreateArticle)
 
-	echo.PUT("/article/:id", handler.UpdateArticle)
+	echo.PUT("/articles/:id", handler.UpdateArticle)
 
-	echo.DELETE("/article/:id", handler.DeleteArticle)
+	echo.DELETE("/articles/:id", handler.DeleteArticle)
 }
